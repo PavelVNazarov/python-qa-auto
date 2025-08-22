@@ -1,0 +1,88 @@
+
+project_root/
+├── pages/
+├── tests/
+│   ├── ui/
+│   └── api/
+├── screenshots/
+├── allure-results/
+├── conftest.py
+├── requirements.txt
+└── README.md
+
+pip install selenium pytest allure-pytest requests
+pip freeze > requirements.txt
+
+(.venv) D:\PythonProject\project_root>pytest tests/ui/ -v
+========================================================= test session starts ==========================================================
+platform win32 -- Python 3.9.0b3, pytest-8.4.1, pluggy-1.6.0 -- D:\PythonProject\project_root\.venv\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: D:\PythonProject\project_root
+plugins: allure-pytest-2.15.0
+collected 1 item
+
+tests/ui/test_login.py::test_valid_login
+DevTools listening on ws://127.0.0.1:54989/devtools/browser/91376fcf-d493-4888-a61e-355bd1e6bec9
+PASSED                                                                                   [100%][5816:10488:0822/204856.236:ERROR:net\socket\ssl_client_socket_impl.cc:914] handshake failed; returned -1, SSL error code 1, net_error -3
+
+
+=========================================================== warnings summary ===========================================================
+tests\ui\test_login.py:6
+  D:\PythonProject\project_root\tests\ui\test_login.py:6: PytestUnknownMarkWarning: Unknown pytest.mark.ui - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.ui
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+==================================================== 1 passed, 1 warning in 12.84s =====================================================
+
+(.venv) D:\PythonProject\project_root>pytest tests/api/ --alluredir=allure-results
+========================================================= test session starts ==========================================================
+platform win32 -- Python 3.9.0b3, pytest-8.4.1, pluggy-1.6.0
+rootdir: D:\PythonProject\project_root
+plugins: allure-pytest-2.15.0
+collected 1 item
+
+tests\api\test_users.py F                                                                                                         [100%]
+
+=============================================================== FAILURES ===============================================================
+____________________________________________________________ test_get_users ____________________________________________________________
+
+    @allure.feature("Users")
+    @allure.title("Get list of users")
+    def test_get_users():
+        response = requests.get("https://reqres.in/api/users?page=1")
+>       assert response.status_code == 200
+E       assert 401 == 200
+E        +  where 401 = <Response [401]>.status_code
+
+tests\api\test_users.py:10: AssertionError
+======================================================= short test summary info ========================================================
+FAILED tests/api/test_users.py::test_get_users - assert 401 == 200
+========================================================== 1 failed in 1.41s ===========================================================
+
+
+
+(.venv) D:\PythonProject\project_root>pytest tests/ --alluredir=allure-results --clean-alluredir
+========================================================= test session starts ==========================================================
+platform win32 -- Python 3.9.0b3, pytest-8.4.1, pluggy-1.6.0 -- D:\PythonProject\project_root\.venv\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: D:\PythonProject\project_root
+configfile: pytest.ini
+plugins: allure-pytest-2.15.0
+collected 4 items
+
+tests/api/test_users.py::test_get_users PASSED                                                                                    [ 25%]
+tests/api/test_users.py::test_create_user PASSED                                                                                  [ 50%]
+tests/ui/test_login.py::test_valid_login
+DevTools listening on ws://127.0.0.1:58198/devtools/browser/8f8ad50f-77e8-4c69-8c61-f43c5c21d777
+PASSED                                                                                   [ 75%]
+tests/ui/test_login.py::test_invalid_login
+DevTools listening on ws://127.0.0.1:58230/devtools/browser/ce840a59-146b-4cd5-8150-16be92aedc66
+PASSED                                                                                 [100%]
+
+========================================================== 4 passed in 19.38s ==========================================================
+
+
+
+
+
+
