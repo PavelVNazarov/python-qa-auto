@@ -85,4 +85,28 @@ PASSED                                                                          
 
 
 
+(.venv) D:\PythonProject\project_root>pytest tests/ --alluredir=allure-results --clean-alluredir
+========================================================= test session starts ==========================================================
+platform win32 -- Python 3.9.0b3, pytest-8.4.1, pluggy-1.6.0 -- D:\PythonProject\project_root\.venv\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: D:\PythonProject\project_root
+configfile: pytest.ini
+plugins: allure-pytest-2.15.0
+collected 4 items
+
+tests/api/test_users.py::test_get_users PASSED                                                                                    [ 25%]
+tests/api/test_users.py::test_create_user PASSED                                                                                  [ 50%]
+tests/ui/test_login.py::test_valid_login
+DevTools listening on ws://127.0.0.1:58945/devtools/browser/f4f6ec1a-8530-488b-9c28-681f9fe23a86
+PASSED                                                                                   [ 75%]
+tests/ui/test_login.py::test_invalid_login
+DevTools listening on ws://127.0.0.1:58973/devtools/browser/8efc15ce-0ee0-4eef-92d3-b66c8135dfd4
+PASSED                                                                                 [100%]
+
+========================================================== 4 passed in 18.73s ==========================================================
+
+
+
+
+
 
