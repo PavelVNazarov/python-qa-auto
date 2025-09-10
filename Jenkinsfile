@@ -11,7 +11,7 @@ pipeline {
             steps {
                 // Явно указываем ветку main
                 git branch: 'main',
-                     url: 'https://github.com/PavelVNazarov/python-qa-auto.git'
+                     url: 'https://github.com/Tanuuu1147/python-qa-auto.git'
             }
         }
         stage('Install Dependencies') {
@@ -50,3 +50,4 @@ pipeline {
         }
     }
 }
+
