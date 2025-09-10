@@ -2,7 +2,6 @@ pipeline {
     agent any
 
     environment {
-        // Убедись, что Allure в PATH
         ALLURE_HOME = "C:\\Tools\\allure\\allure-2.34.1"
         PATH = "${env.ALLURE_HOME}\\bin;${env.PATH}"
     }
@@ -10,7 +9,9 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                git 'https://github.com/PavelVNazarov/python-qa-auto.git'
+                // Явно указываем ветку main
+                git branch: 'main',
+                     url: 'https://github.com/PavelVNazarov/python-qa-auto.git'
             }
         }
         stage('Install Dependencies') {
@@ -39,14 +40,12 @@ pipeline {
             echo 'Сборка провалена: тесты упали'
         }
         always {
-            // Публикация отчёта Allure
             allure([
                 includeProperties: false,
                 jdk: '',
                 properties: [],
                 results: [[path: 'allure-results']]
             ])
-            // Архивируем результаты
             archiveArtifacts artifacts: 'allure-results/**', allowEmptyArchive: true
         }
     }
