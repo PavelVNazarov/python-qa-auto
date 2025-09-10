@@ -1,11 +1,8 @@
 pipeline {
     agent any
 
-    tools {
-        python 'Python3'  // Должно совпадать с именем в Global Tools
-    }
-
     environment {
+        // Убедись, что Allure в PATH
         ALLURE_HOME = "C:\\Tools\\allure\\allure-2.34.1"
         PATH = "${env.ALLURE_HOME}\\bin;${env.PATH}"
     }
@@ -20,7 +17,7 @@ pipeline {
             steps {
                 script {
                     echo 'Установка зависимостей...'
-                    bat 'pip install -r requirements.txt'
+                    bat 'python -m pip install -r requirements.txt'
                 }
             }
         }
@@ -42,12 +39,14 @@ pipeline {
             echo 'Сборка провалена: тесты упали'
         }
         always {
+            // Публикация отчёта Allure
             allure([
                 includeProperties: false,
                 jdk: '',
                 properties: [],
                 results: [[path: 'allure-results']]
             ])
+            // Архивируем результаты
             archiveArtifacts artifacts: 'allure-results/**', allowEmptyArchive: true
         }
     }
